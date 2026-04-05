@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <schema id="org.gnome.shell.extensions.speak-selection" path="/org/gnome/shell/extensions/speak-selection/">
+
+    <key name="show-indicator" type="b">
+      <default>true</default>
+      <summary>Show the panel menu indicator</summary>
+    </key>
+
+    <key name="speech-rate" type="i">
+      <default>0</default>
+      <summary>Speech rate</summary>
+    </key>
+
+    <key name="run-speech" type="as">
+      <default>['&lt;Super&gt;&lt;Shift&gt;k']</default>
+      <summary>Speak current selection</summary>
+    </key>
+
+    <key name="stop-speech" type="as">
+      <default>['&lt;Super&gt;&lt;Shift&gt;l']</default>
+      <summary>Interrupt/Stop speech</summary>
+    </key>
+
+  </schema>
+</schemalist>
