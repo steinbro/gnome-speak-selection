@@ -15,13 +15,11 @@ const KEY_RATE = "speech-rate";
 
 export default class SpeechExtension extends Extension {
   enable() {
-    this._settings = this.getSettings(
-      "org.gnome.shell.extensions.speak-selection",
-    );
+    this._settings = this.getSettings();
     this._indicator = null;
 
     // Watch for changes to the toggle
-    this._settingsId = this._settings.connect("changed::show-indicator", () => {
+    this._settingsId = this._settings.connectObject("changed::show-indicator", () => {
       this._updateIndicatorVisibility();
     });
 
@@ -99,7 +97,7 @@ export default class SpeechExtension extends Extension {
     this._slider.x_expand = true;
 
     // Connect the signal
-    this._slider.connect("notify::value", () => {
+    this._slider.connectObject("notify::value", () => {
       let rate = Math.round(this._slider.value * 200 - 100);
       this._settings.set_int(KEY_RATE, rate);
     });
@@ -111,14 +109,17 @@ export default class SpeechExtension extends Extension {
   }
 
   disable() {
-    this._settings.disconnect(this._settingsId);
+    this._settings.disconnectObject(this._settingsId);
+    this._settings = null;
+
     Main.wm.removeKeybinding(KEY_SPEAK);
     Main.wm.removeKeybinding(KEY_STOP);
-    if (this._indicator) {
-      this._indicator.destroy();
-      this._indicator = null;
-    }
-    this._settings = null;
+
+    this._indicator?.destroy();
+    this._indicator = null;
+
+    this._slider?.destroy();
+    this._slider = null;
   }
 
   _runCommand(command) {

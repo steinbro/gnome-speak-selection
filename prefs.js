@@ -6,9 +6,7 @@ import { ExtensionPreferences } from "resource:///org/gnome/Shell/Extensions/js/
 
 export default class SpeechPreferences extends ExtensionPreferences {
   fillPreferencesWindow(window) {
-    const settings = this.getSettings(
-      "org.gnome.shell.extensions.speak-selection",
-    );
+    const settings = this.getSettings();
     const page = new Adw.PreferencesPage();
 
     // --- Shortcut Group ---
