@@ -110,16 +110,13 @@ export default class SpeechExtension extends Extension {
 
   disable() {
     this._settings.disconnectObject(this._settingsId);
-    this._settings = null;
-
     Main.wm.removeKeybinding(KEY_SPEAK);
     Main.wm.removeKeybinding(KEY_STOP);
-
     this._indicator?.destroy();
     this._indicator = null;
-
     this._slider?.destroy();
     this._slider = null;
+    this._settings = null;
   }
 
   _runCommand(command) {
